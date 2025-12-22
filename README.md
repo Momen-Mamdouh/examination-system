@@ -87,3 +87,7 @@ This project was built to:
     -Practice building scalable logic without frameworks
 
     -Simulate real-world examination workflows
+
+# examination-system
+
+A framework-free frontend examination system built with vanilla JavaScript
