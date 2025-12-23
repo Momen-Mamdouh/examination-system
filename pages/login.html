@@ -6,13 +6,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../styles/pages/auth.css">
 </head>
 
-<body>
+<body class="background-div form-bg">
+
+    <main class="login-main">
+        <section class="login">
+            <div class="login-card main-card-box-shadow ">
+                <h1 class="main-card-box-shadow">Login</h1>
+                <form action="" method="get" class="login-form">
+
+                    <div class="input-area">
+
+                        <label for="username" id="username"></label>
+                        <div class="login-input">
+                            <input class="main-input" type="text" placeholder="Mohamed Kher" />
+                            <i class="fa-regular fa-user"></i>
+                        </div>
 
 
-    <script src="../src/auth.js"></script>
+                        <label for="password" id="password"></label>
+                        <div class="password-input">
+                            <input class="main-input" type="password" placeholder="Password" />
+                            <i class="fa-regular fa-eye"></i>
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+
+
+                        <aside class="forget-password">
+                            <a class="main-link" href="./register.html">Forget Password</a>
+                        </aside>
+                    </div>
+
+                    <div class="submit-area">
+                        <button type="submit" class="main-btn">Login</button>
+                        <aside class="register">
+                            <div>Don't have an account? <a class="main-link" href="./register.html">Register</a> </div>
+                        </aside>
+
+                    </div>
+
+
+                </form>
+            </div>
+
+
+
+
+        </section>
+
+
+    </main>
+
+
+    <script src="../src/pages//auth.js"></script>
 </body>
 
 </html>

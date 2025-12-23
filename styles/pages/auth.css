@@ -5,12 +5,21 @@
 }
 
 :root {
-  --primary-color: #0f172a;
-  --main-bg-color: #e5e7eb;
-  --main-white-color: #fafafa;
-  --primary-text-color: #1f2933;
-  --secondary-text-color: #6b7280;
-  --action-color: #2563eb;
+  /* Surface Colors */
+  --main-bg-color: #e5e7eb; /* Page background */
+  --main-white-color: #fafafa; /* Card & Input background */
+  --main-border-color: rgba(2, 12, 44, 0.6);
+
+  /* Text Colors */
+  --primary-text-color: #1f2933; /* Titles and typed text */
+  --secondary-text-color: #6b7280; /* Borders, Dividers, Placeholders */
+
+  /* Brand / Action Colors */
+  --action-color: #2563eb; /* Buttons, Links, Focus states */
+  --action-hover: #1d4ed8; /* Button & Link hover */
+  --action-active: #1e40af; /* Button active state */
+
+  /* Status Colors */
   --success-color: #10b981;
   --error-color: #ef4444;
   --warning-color: #fbbf24;
@@ -23,7 +32,11 @@
   --main-font-size: 1rem;
   --main-heading-size: 2rem;
 
-  --main-transitions: all 0.5s ease-in-out;
+  --main-box-shadow: 1px 1px 3px 1px #1f2933 inset;
+  --main-success-box-shadow: 1px 1px 3px 1px #10b981 inset;
+  --main-error-box-shadow: 1px 1px 3px 1px #ef4444 inset;
+
+  --main-transitions: all 0.75s ease-in-out;
 }
 
 body {
@@ -40,19 +53,54 @@ h1 {
 }
 
 .main-btn {
-  background-color: var(--primary-color);
-  width: 20%;
-  padding: var(--main-space) calc(var(--main-space) * 5);
-  font-size: 1.25rem;
-  border: none;
+  background-color: var(--action-color);
   color: var(--main-white-color);
-  border-radius: var(--main-border-radius);
+  padding: calc(var(--main-space) * 0.75) calc(var(--main-space) * 6);
+  border-radius: calc(var(--main-space) * 2);
+  border: none;
+
+  font-size: 1.25rem;
   transition: var(--main-transitions);
 }
 
 .main-btn:hover {
-  background-color: var(--warning-color);
+  background-color: var(--action-hover);
+}
+
+.main-btn:active {
+  background-color: var(--active-hover);
+}
+
+.main-input {
+  border: 1px solid var(--primary-text-color);
   color: var(--primary-text-color);
+  border-radius: calc(var(--main-space) * 2);
+  padding: calc(var(--main-space) * 0.75) calc(var(--main-space) * 2);
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--primary-text-color);
+  box-shadow: var(--main-box-shadow);
+  transition: all 0.15s ease-in-out;
+}
+
+.main-input:focus-visible {
+  border: none;
+  outline: 2px solid var(--error-color);
+  box-shadow: var(--main-error-box-shadow);
+}
+
+.main-card-box-shadow {
+  box-shadow: 1px 1px 16px 1px rgba(58, 58, 58, 0.3) inset;
+}
+
+.main-link {
+  text-decoration: none;
+
+  color: var(--primary-text-color);
+  transition: var(--main-transitions);
+}
+.main-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* !!===================================ROOT===============================!! */
@@ -92,122 +140,82 @@ h1 {
 /* ??==================================Main-Background-Classes===================== */
 
 .background-div {
-  min-height: 75vh;
+  min-height: 100vh;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
   background-attachment: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .form-bg {
   min-height: 100vh;
-  background-image: url("../assets/formBg.svg");
+  background-image: url("../../assets/images/formBg.svg");
 }
 
-.home-bg {
-  background-image: url("../assets/welcomeHero.svg");
+.login-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ??==================================Main-Background-Classes===================== */
 
 /* **===================================Main===============================** */
 
-/* ^^=====================================Header============================= */
-
-header {
+main.login-main section.login div.login-card {
   display: flex;
-  height: 75vh;
-}
-header p {
-  font-size: 1.75rem;
-}
-
-header.hero {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-  gap: var(--main-space);
+  /* width: 100%; */
+  border: 2px solid var(--main-border-color);
+  border-radius: calc(var(--main-border-radius) * 3);
+  padding: 0 calc(var(--main-border-radius) * 3)
+    calc(var(--main-border-radius) * 3);
+
+  background-color: var(--main-bg-color);
 }
 
-/* ^^=====================================Header============================= */
-
-/* ??=====================================Instructions-list============================= */
-
-.instructions {
-  text-align: center;
-}
-
-.instructions h3 {
-  text-align: center;
-  font-size: var(--main-heading-size);
-}
-
-.instructions ul.instructions-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: calc(3 * var(--main-space));
-  list-style: none;
-}
-
-.instructions ul.instructions-list li.list-item {
-  position: relative;
-  width: 25%;
-  padding: var(--main-space);
+main.login-main section.login div.login-card h1 {
+  font-size: 2rem;
   color: var(--primary-text-color);
-  margin: calc(12px + var(--main-space)) 0;
+  font-weight: 400;
   background-color: var(--main-white-color);
-  border-radius: var(--card-border-radius);
-  box-shadow: 1px 1px 3px var(--warning-color) inset;
-  transition: var(--main-transitions);
-}
-
-.instructions ul.instructions-list li.list-item:hover {
-  cursor: default;
-  box-shadow: 3px 3px 1px var(--success-color) inset;
-}
-
-.instructions ul.instructions-list li.list-item .list-header {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: var(--main-space);
   padding: var(--main-space);
-}
-.instructions ul.instructions-list li.list-item .list-header h4 {
-  font-size: 1.5rem;
-}
-.instructions ul.instructions-list li.list-item .list-content {
-  padding: var(--main-space);
+  margin-top: -1px;
+  border-radius: 2px 2px 12px 12px; /* top-left , top-right,  bottom-right,  bottom-left */
+  border: none;
 }
 
-.instructions ul.instructions-list li.list-item .list-content p {
-  font-size: 1.25rem;
-}
-
-.list-number {
-  border-radius: 100%;
-  background-color: var(--warning-color);
-  width: 50px;
-  height: 50px;
+main.login-main section.login div.login-card .input-area {
+  margin: calc(var(--main-space) * 2) 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: var(--main-heading-size);
-  color: var(--main-white-color);
-  transition: var(--main-transitions);
+  gap: calc(var(--main-space) * 0.5);
 }
 
-.instructions ul.instructions-list li.list-item:hover .list-number {
-  background-color: var(--success-color);
+main.login-main section.login div.login-card .input-area div {
+  position: relative;
+}
+main.login-main section.login div.login-card .input-area div i {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.instructions button {
-  margin: calc(var(--main-space) * 3);
+main.login-main section.login div.login-card .input-area div i.fa-eye {
+  right: 15%;
 }
 
-/* ??=====================================Instructions-list============================= */
+main.login-main section.login div.login-card .submit-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--main-space);
+}
+
+/* **===================================Main===============================** */
