@@ -6,14 +6,132 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
-    <link rel="stylesheet" href="../styles/pages/auth.css">
+    <style>
+        .registeration-form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 50px;
+        }
+        span{
+            display: none;
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
 
+    <form class="registeration-form">
+        <input type="text" name="fullname" placeholder="Full Name"  id="fullname">
+        <span class="fullname-warning">"Name must be at least 3 letters (no numbers)"</span>
 
+        <input type="email" name="email" placeholder="Email"  id="email">
+        <span class="email-warning">Please enter a valid email address</span>
+        
+        <input type="password" name="password" placeholder="Password"  id="password">
+        <span class="password-warning">Password must be 8+ chars, with at least 1 letter & 1 number</span>
 
-    <script src="../src/auth.js"></script>
+        <input type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password">
+        <span class="confirm-password-warning">passwords do not match</span>
+
+        <button type="submit" class="register-btn">register</button>
+    </form>
+
+    <!-- script -->
+    <script>
+        var registerationForm =document.querySelector('.registeration-form') 
+        var fullname = document.querySelector('#fullname')
+        var email = document.querySelector('#email')
+        var password = document.querySelector('#password')
+        var confirmPassword = document.querySelector('#confirm-password')
+        var registerBtn = document.querySelector('.register-btn')
+
+        // warnings spans
+        var nameWarning = document.querySelector('.fullname-warning')
+        var emailWarning = document.querySelector('.email-warning')
+        var passwordWarning = document.querySelector('.password-warning')
+        var confirmWarning = document.querySelector('.confirm-password-warning')
+        
+        // Regex Patterns
+        var nameRegex = /^[a-zA-Z\s]{3,}$/; // At least 3 characters, letters and spaces only
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Standard Email format
+        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Min 8 chars, at least 1 letter & 1 number
+
+        // submitting
+        registerationForm.addEventListener('submit', function(e){
+            e.preventDefault()
+            var isValid = true
+            // validate fullname
+            if(nameRegex.test(fullname.value) === false){
+                nameWarning.style.display= 'block'
+                isValid = false
+            }
+            else{
+                nameWarning.style.display= 'none'
+            }
+
+            // validate email 
+            if(emailRegex.test(email.value) === false){
+             emailWarning.style.display= 'block'
+             emailWarning.style.textContent= 'Please enter a valid email address'
+             isValid = false
+
+            }
+            else{
+            emailWarning.style.display= 'none'
+
+            }
+            // password email 
+            if(passwordRegex.test(password.value) === false){
+             passwordWarning.style.display= 'block'
+             isValid = false
+
+            }
+            else{
+            passwordWarning.style.display= 'none'
+
+            }
+            // confirm password email 
+            if(confirmPassword.value != password.value){
+             confirmWarning.style.display= 'block'
+             isValid = false
+
+            }
+            else{
+            confirmWarning.style.display= 'none'
+
+            }
+
+            if(isValid === true){
+                var users = JSON.parse(localStorage.getItem('users')) || []
+                var isRegistered = false
+                for(var i = 0; i < users.length ; i++){
+                    if(users[i].email == email.value){
+                        isRegistered = true
+                        break;
+                    }
+                }
+
+                if(isRegistered){
+                    emailWarning.style.display = 'block'
+                    emailWarning.textContent = 'this email already exists'
+                }
+                else{
+                    var newUser = {
+                        fullname: fullname.value,
+                        email: email.value,
+                        password: password.value
+                    }
+                    users.push(newUser)
+                    emailWarning.style.display = 'none'
+                    localStorage.setItem('users', JSON.stringify(users))
+                    alert('Registration Successful!');
+                    window.location.href='login.html'
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
