@@ -6,134 +6,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
-    <style>
-        .registeration-form{
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 50px;
-        }
-        span{
-            display: none;
-            color: red;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../styles/pages/auth.css">
 </head>
 
-<body>
+<body class="background-div form-bg">
 
-    <form class="registeration-form">
-        <input type="text" name="fullname" placeholder="Full Name"  id="fullname">
-        <span class="fullname-warning">"Name must be at least 3 letters (no numbers)"</span>
+    <main class="auth-main">
+        <section class="auth">
 
-        <input type="email" name="email" placeholder="Email"  id="email">
-        <span class="email-warning">Please enter a valid email address</span>
-        
-        <input type="password" name="password" placeholder="Password"  id="password">
-        <span class="password-warning">Password must be 8+ chars, with at least 1 letter & 1 number</span>
+            <div class="auth-card main-card-box-shadow ">
+                <div class="card-header ">Register</div>
+                <form class="auth-form">
 
-        <input type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password">
-        <span class="confirm-password-warning">passwords do not match</span>
+                    <div class="input-area">
 
-        <button type="submit" class="register-btn">register</button>
-    </form>
+                        <div class="input-div">
+                            <input class="main-input" type="text" name="fullname" placeholder="Full Name" id="fullname"
+                                pattern="^[a-zA-Z\s]{3,}$" />
+                            <i class="fa-regular fa-user"></i>
 
-    <!-- script -->
-    <script>
-        var registerationForm =document.querySelector('.registeration-form') 
-        var fullname = document.querySelector('#fullname')
-        var email = document.querySelector('#email')
-        var password = document.querySelector('#password')
-        var confirmPassword = document.querySelector('#confirm-password')
-        var registerBtn = document.querySelector('.register-btn')
+                        </div>
+                        <span class="fullname-warning"
+                            data-err-message="Name must be at least 3 letters (no numbers)"></span>
 
-        // warnings spans
-        var nameWarning = document.querySelector('.fullname-warning')
-        var emailWarning = document.querySelector('.email-warning')
-        var passwordWarning = document.querySelector('.password-warning')
-        var confirmWarning = document.querySelector('.confirm-password-warning')
-        
-        // Regex Patterns
-        var nameRegex = /^[a-zA-Z\s]{3,}$/; // At least 3 characters, letters and spaces only
-        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/; // Standard Email format
-        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; // Min 8 chars, at least 1 letter & 1 number
 
-        // submitting
-        registerationForm.addEventListener('submit', function(e){
-            e.preventDefault()
-            var isValid = true
-            // validate fullname
-            if(nameRegex.test(fullname.value) === false){
-                nameWarning.style.display= 'block'
-                isValid = false
-            }
-            else{
-                nameWarning.style.display= 'none'
-            }
+                        <div class="input-div">
+                            <input class="main-input" type="email" name="email" placeholder="Email" id="email"
+                                pattern="^[^\\s@]+@[^\\s@]+\.[^\\s@]+$" />
+                            <i class="fa-solid fa-at"></i>
 
-            // validate email 
-            if(emailRegex.test(email.value) === false){
-             emailWarning.style.display= 'block'
-             emailWarning.style.textContent= 'Please enter a valid email address'
-             isValid = false
+                        </div>
+                        <span class="email-warning" data-err-message="Please enter a valid email address"></span>
 
-            }
-            else{
-            emailWarning.style.display= 'none'
 
-            }
-            // password email 
-            if(passwordRegex.test(password.value) === false){
-             passwordWarning.style.display= 'block'
-             isValid = false
+                        <div class="input-div">
+                            <input class="main-input" type="password" name="password" placeholder="Password"
+                                id="password" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" />
+                            <i class="fa-regular fa-eye"></i>
+                            <i class="fa-solid fa-lock"></i>
 
-            }
-            else{
-            passwordWarning.style.display= 'none'
+                        </div>
+                        <span class="password-warning" data-err-message="Password must be 8+ chars, with at least 1 letter & 1
+                            number"></span>
 
-            }
-            // confirm password email 
-            if(confirmPassword.value != password.value){
-             confirmWarning.style.display= 'block'
-             isValid = false
 
-            }
-            else{
-            confirmWarning.style.display= 'none'
+                        <div class="input-div">
+                            <input class="main-input" type="password" name="confirm-password"
+                                placeholder="Confirm Password" id="confirm-password"
+                                pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" />
+                            <i class="fa-regular fa-eye"></i>
+                            <i class="fa-solid fa-lock"></i>
 
-            }
+                        </div>
+                        <span class="confirm-password-warning" data-err-message="Passwords do not match"></span>
 
-            if(isValid === true){
-                var users = JSON.parse(localStorage.getItem('users')) || []
-                var isRegistered = false
-                for(var i = 0; i < users.length ; i++){
-                    if(users[i].email == email.value){
-                        isRegistered = true
-                        break;
-                    }
-                }
+                    </div>
 
-                if(isRegistered){
-                    emailWarning.style.display = 'block'
-                    emailWarning.textContent = 'this email already exists'
-                }
-                else{
-                    var newUser = {
-                        fullname: fullname.value,
-                        email: email.value,
-                        password: password.value
-                    }
-                    users.push(newUser)
-                    emailWarning.style.display = 'none'
-                    localStorage.setItem('users', JSON.stringify(users))
-                    alert('Registration Successful!');
-                    window.location.href='login.html'
-                }
-            }
-        })
-    </script>
+                    <div class="submit-area">
+                        <button type="submit" class="main-btn">Register</button>
+                        <aside class="login">
+                            <div>Already have an account? <a class="main-link" href="./login.html">Login</a> </div>
+                        </aside>
+                    </div>
 
-    // ahemne
+                </form>
+
+
+            </div>
+            <div class="card-img">
+                <img src="../assets/images/register-form-img.png" alt="register">
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <div id="toast">
+        <div id="img">
+            <i class="fa-regular fa-circle-check"></i>
+            <i class="fa-regular fa-circle-xmark"></i>
+        </div>
+        <p id="desc">A notification message..</p>
+    </div>
+
+
+    <script src="../src/pages/register.js"></script>
+
 </body>
 
 </html>

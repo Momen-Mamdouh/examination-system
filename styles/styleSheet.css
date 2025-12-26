@@ -208,6 +208,10 @@ header.hero {
 
 .instructions button {
   margin: calc(var(--main-space) * 3);
+  border: none;
+}
+.instructions button a {
+  text-decoration: none;
 }
 
 /* ??=====================================Instructions-list============================= */
