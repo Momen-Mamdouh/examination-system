@@ -14,69 +14,15 @@
 
 <body class="background-div form-bg">
 
+    <div id="loader-container" style="display: none;">
+        <div class="loader"></div>
+    </div>
+
     <main class="auth-main">
-        <section class="auth">
-            <div class="auth-card main-card-box-shadow ">
-                <div class="card-header ">Login</div>
-                <form class="auth-form">
-
-                    <div class="input-area">
-
-
-                        <div class="input-div">
-                            <input class="main-input" type="email" name="email" placeholder="Email" id="email"
-                                pattern="^[^\\s@]+@[^\\s@]+\.[^\\s@]+$" />
-                            <i class="fa-solid fa-at"></i>
-
-                        </div>
-                        <span class="email-warning" data-err-message="Please enter a valid email address"></span>
-
-
-                        <div class="input-div">
-                            <input class="main-input" type="password" name="password" placeholder="Password"
-                                id="password" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" />
-                            <i class="fa-regular fa-eye"></i>
-                            <i class="fa-solid fa-lock"></i>
-
-                        </div>
-                        <span class="password-warning" data-err-message="Password must be 8+ chars, with at least 1 letter & 1
-                            number"></span>
-
-
-
-                    </div>
-
-                    <div class="submit-area">
-                        <button type="submit" class="main-btn">Login</button>
-                        <aside class="register">
-                            <div>Don't have an account? <a class="main-link" href="./register.html">Register</a> </div>
-                        </aside>
-
-                    </div>
-
-
-                </form>
-            </div>
-            <div class="card-img">
-                <img src="../assets/images/login-form-img.png" alt="login">
-            </div>
-        </section>
-
-
-        <div id="toast">
-            <div id="img">
-                <i class="fa-regular fa-circle-check"></i>
-                <i class="fa-regular fa-circle-xmark"></i>
-            </div>
-            <p id="desc">A notification message..</p>
-        </div>
-
-
-
-
+        <!-- Data comes from JS -->
     </main>
 
-
+    <script src="../src/creation/createLogin.js"></script>
     <script src="../src/pages/login.js"></script>
 </body>
 

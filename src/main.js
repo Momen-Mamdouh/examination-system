@@ -1,5 +1,8 @@
-// **===================================GUARD================================:
+var loaderContainer = document.getElementById("loader-container");
 var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
+toggleLoader();
+// **===================================GUARD================================:
+
 homeGuard();
 function homeGuard() {
   if (!userLogin || !userLogin.userEmail) {
@@ -8,10 +11,27 @@ function homeGuard() {
 }
 // **===================================GUARD================================
 
+// **===================================LOADER================================:
+
+function toggleLoader() {
+  loaderContainer.style.display = "block";
+  setTimeout(function () {
+    loaderContainer.style.display = "none";
+  }, 2000);
+}
+
+function routing(route) {
+  toggleLoader();
+  window.location.pathname = route;
+}
+
+// **===================================LOADER================================
+
 var welcomeHeader = document.querySelector("h1");
 var users = JSON.parse(localStorage.getItem("users")) || [];
 var userName;
 var today = new Date().getDate();
+var startBtn = document.querySelector(".start-btn");
 
 // !!===================================Check_Login_user================================:
 
@@ -25,8 +45,6 @@ if (userLogin.userEmail) {
 }
 
 function isOldLogin() {
-  console.log(userLogin.loginStartDate, today);
-  console.log(today > userLogin.loginStartDate);
   return today > userLogin.loginStartDate;
 }
 
@@ -44,3 +62,11 @@ function welcoming() {
 }
 
 // !!===================================Check_Login_user================================:
+
+// ^^===================================Retake_Exam================================:
+startBtn.addEventListener("click", function () {
+  userLogin.userScore = null;
+  localStorage.setItem("logins", JSON.stringify(userLogin));
+  routing("/pages/test.html");
+});
+// ^^===================================Retake_Exam================================:

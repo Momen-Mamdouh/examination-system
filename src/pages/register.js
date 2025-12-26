@@ -1,3 +1,7 @@
+var loaderContainer = document.getElementById("loader-container");
+var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
+toggleLoader();
+
 var registerationForm = document.querySelector(".auth-form");
 
 var fullname = document.querySelector("#fullname");
@@ -21,7 +25,7 @@ var emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/; // Standard Email format
 var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; /// Allows special characters, requires 1 letter, 1 number, and 8+ length
 
 // **===================================GUARD================================:
-var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
+
 loginGuard();
 function loginGuard() {
   if (userLogin && userLogin.userEmail) {
@@ -30,6 +34,22 @@ function loginGuard() {
 }
 
 // **===================================GUARD================================
+
+// **===================================LOADER================================:
+
+function toggleLoader() {
+  loaderContainer.style.display = "block";
+  setTimeout(function () {
+    loaderContainer.style.display = "none";
+  }, 2000);
+}
+
+function routing(route) {
+  toggleLoader();
+  window.location.pathname = route;
+}
+
+// **===================================LOADER================================
 
 // !!===================================Check_Validation================================:
 
@@ -89,7 +109,7 @@ function updateButtonState() {
 }
 
 function routing(route) {
-  window.location.href = route;
+  window.pathname.href = route;
 }
 
 inputDiv.forEach(function (currentInput) {

@@ -187,6 +187,7 @@ header.hero {
 
 .instructions ul.instructions-list li.list-item .list-content p {
   font-size: 1.25rem;
+  color: var(--secondary-text-color, #555);
 }
 
 .list-number {
@@ -215,3 +216,147 @@ header.hero {
 }
 
 /* ??=====================================Instructions-list============================= */
+
+/* !!===================================RESPONSIVE DESIGN===============================!! */
+
+/* --- Large Tablets / Small Laptops (Below 1024px) --- */
+@media (max-width: 1024px) {
+  .instructions ul.instructions-list li.list-item {
+    width: 40%; /* 2 items per row */
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+}
+
+/* --- Tablets (Below 768px) --- */
+@media (max-width: 768px) {
+  .background-div {
+    background-attachment: scroll; /* Fixed BG often jitters on mobile */
+    min-height: 50vh;
+  }
+
+  header {
+    height: 50vh;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  header p {
+    font-size: 1.25rem;
+  }
+
+  .instructions ul.instructions-list li.list-item {
+    width: 85%; /* 1 item per row, centered */
+    margin: 10px 0;
+  }
+
+  .main-btn {
+    width: 60%; /* Make button wider for easier tapping */
+  }
+}
+
+/* --- Mobile Phones (Below 480px) --- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .instructions h3 {
+    font-size: 1.5rem;
+  }
+
+  .instructions ul.instructions-list li.list-item {
+    width: 95%;
+  }
+
+  .instructions ul.instructions-list li.list-item .list-header h4 {
+    font-size: 1.2rem;
+  }
+
+  .instructions ul.instructions-list li.list-item .list-content p {
+    font-size: 1rem;
+  }
+
+  .list-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .main-btn {
+    width: 90% !important;
+    padding: var(--main-space) 0;
+  }
+}
+
+/* !!===================================RESPONSIVE DESIGN===============================!! */
+
+/* **=====================================Loader============================= */
+
+#loader-container {
+  position: relative;
+  background-color: #000000;
+  min-width: 99vw;
+  min-height: 100vh;
+}
+
+.loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-60%, -50%);
+  width: 100px;
+  z-index: 5;
+  aspect-ratio: 1.154;
+  background: conic-gradient(
+    from 120deg at 50% 64%,
+    #0000,
+    var(--action-color) 1deg 120deg,
+    #0000 121deg
+  );
+  animation: l27-0 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: inherit;
+  transform-origin: 50% 66%;
+  animation: l27-1 1.5s infinite;
+}
+.loader:after {
+  --s: -1;
+  z-index: 5;
+}
+@keyframes l27-0 {
+  0%,
+  30% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(120deg);
+  }
+  70.01%,
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes l27-1 {
+  0% {
+    transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
+  }
+  30%,
+  70% {
+    transform: rotate(calc(var(--s, 1) * 120deg))
+      translate(calc(var(--s, 1) * -5px), 10px);
+  }
+  100% {
+    transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
+  }
+}
+
+/* **=====================================Loader============================= */

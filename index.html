@@ -13,87 +13,21 @@
 
 <body>
 
+    <div id="loader-container" style="display: none;">
+        <div class="loader"></div>
+    </div>
 
-    <header class="hero background-div home-bg flex">
-        <h1>Welcome "User Name"</h1>
-        <p>Please reaed Exam instructions carefully.</p>
-    </header>
+    <main>
+        <header class="hero background-div home-bg flex">
+            <!-- Data comes from JS -->
+            <h1>Welcome "User Name"</h1>
+            <p>Please reaed Exam instructions carefully.</p>
+        </header>
 
-    <section class="instructions container">
-        <h3>Exam instructions</h3>
-
-        <ul class="instructions-list">
-
-            <li class="list-item">
-                <div class="list-header">
-                    <span class="list-number">1</span>
-                    <h4 class="title">MCQ Format</h4>
-                </div>
-                <div class="list-content">
-
-                    <p class="text">This is an MCQ exam; please select only one choice from the four options displayed
-                        for each question.</p>
-                </div>
-            </li>
-
-            <li class="list-item">
-                <div class="list-header">
-                    <span class="list-number">2</span>
-                    <h4 class="title">Navigation</h4>
-                </div>
-                <div class="list-content">
-
-                    <p class="text">Use the <b>Next</b> and <b>Prev</b> buttons to move between questions. Note that
-                        navigation is restricted at the start and end of the exam.</p>
-                </div>
-            </li>
+    </main>
 
 
-            <li class="list-item">
-                <div class="list-header">
-                    <span class="list-number">3</span>
-                    <h4 class="title">Mark for Review</h4>
-                </div>
-                <div class="list-content">
-
-                    <p class="text">Any question can be marked in the sidebar so you can jump back to it directly to
-                        choose or change your answer.</p>
-                </div>
-            </li>
-
-
-            <li class="list-item">
-                <div class="list-header">
-                    <span class="list-number">4</span>
-                    <h4 class="title">Completion</h4>
-                </div>
-                <div class="list-content">
-                    <p class="text">You cannot submit the exam if any questions are left unanswered. Ensure all fields
-                        are filled before finishing.</p>
-                </div>
-            </li>
-
-            <li class="list-item">
-                <div class="list-header">
-                    <span class="list-number">5</span>
-                    <h4 class="title">Final Submission</h4>
-                </div>
-                <div class="list-content">
-                    <p class="text">Once you click submit, your answers are final. You cannot re-enter the exam, and
-                        your results will be displayed immediately.</p>
-                </div>
-            </li>
-
-
-
-        </ul>
-        <button type="button">
-            <a class="main-btn" href="./pages/test.html">Start</a>
-        </button>
-
-    </section>
-
-
+    <script src="./src/creation/createHome.js"></script>
     <script src="./src/main.js"></script>
 </body>
 

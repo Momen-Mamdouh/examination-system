@@ -1,3 +1,8 @@
+var loaderContainer = document.getElementById("loader-container");
+var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
+var users = JSON.parse(localStorage.getItem("users")) || [];
+toggleLoader();
+
 var loginForm = document.querySelector(".auth-form");
 
 var email = document.querySelector("#email");
@@ -15,13 +20,8 @@ var passwordWarning = document.querySelector(".password-warning");
 var emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/; // Standard Email format
 var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; /// Allows special characters, requires 1 letter, 1 number, and 8+ length
 
-var users = JSON.parse(localStorage.getItem("users")) || [];
-var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
-
-loginGuard();
-
 // **===================================GUARD================================:
-
+loginGuard();
 function loginGuard() {
   if (userLogin && userLogin.userEmail) {
     window.location.replace("/index.html");
@@ -29,6 +29,22 @@ function loginGuard() {
 }
 
 // **===================================GUARD================================
+
+// **===================================LOADER================================:
+
+function toggleLoader() {
+  loaderContainer.style.display = "block";
+  setTimeout(function () {
+    loaderContainer.style.display = "none";
+  }, 2000);
+}
+
+function routing(route) {
+  toggleLoader();
+  window.location.pathname = route;
+}
+
+// **===================================LOADER================================
 
 // !!===================================Check_Validation================================:
 
@@ -61,10 +77,6 @@ function isFound(key, inputValue) {
 function isValidLogin() {
   var foundEmail = isFound("email", email.value.trim().toLowerCase());
   return !!foundEmail;
-}
-
-function routing(route) {
-  window.location.pathname = route;
 }
 
 inputDiv.forEach(function (currentInput) {
