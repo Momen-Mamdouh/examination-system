@@ -14,33 +14,36 @@
 
 <body class="background-div form-bg">
 
-    <main class="login-main">
-        <section class="login">
-            <div class="login-card main-card-box-shadow ">
-                <h1 class="main-card-box-shadow">Login</h1>
-                <form action="" method="get" class="login-form">
+    <main class="auth-main">
+        <section class="auth">
+            <div class="auth-card main-card-box-shadow ">
+                <div class="card-header ">Login</div>
+                <form class="auth-form">
 
                     <div class="input-area">
 
-                        <label for="username" id="username"></label>
-                        <div class="login-input">
-                            <input class="main-input" type="text" placeholder="Mohamed Kher" />
-                            <i class="fa-regular fa-user"></i>
+
+                        <div class="input-div">
+                            <input class="main-input" type="email" name="email" placeholder="Email" id="email"
+                                pattern="^[^\\s@]+@[^\\s@]+\.[^\\s@]+$" />
+                            <i class="fa-solid fa-at"></i>
+
                         </div>
+                        <span class="email-warning" data-err-message="Please enter a valid email address"></span>
 
 
-                        <label for="password" id="password"></label>
-                        <div class="password-input">
-                            <input class="main-input" type="password" placeholder="Password" />
+                        <div class="input-div">
+                            <input class="main-input" type="password" name="password" placeholder="Password"
+                                id="password" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" />
                             <i class="fa-regular fa-eye"></i>
                             <i class="fa-solid fa-lock"></i>
+
                         </div>
+                        <span class="password-warning" data-err-message="Password must be 8+ chars, with at least 1 letter & 1
+                            number"></span>
 
 
 
-                        <aside class="forget-password">
-                            <a class="main-link" href="./register.html">Forget Password</a>
-                        </aside>
                     </div>
 
                     <div class="submit-area">
@@ -54,17 +57,27 @@
 
                 </form>
             </div>
-
-
-
-
+            <div class="card-img">
+                <img src="../assets/images/login-form-img.png" alt="login">
+            </div>
         </section>
+
+
+        <div id="toast">
+            <div id="img">
+                <i class="fa-regular fa-circle-check"></i>
+                <i class="fa-regular fa-circle-xmark"></i>
+            </div>
+            <p id="desc">A notification message..</p>
+        </div>
+
+
 
 
     </main>
 
 
-    <script src="../src/pages//auth.js"></script>
+    <script src="../src/pages/login.js"></script>
 </body>
 
 </html>
