@@ -249,7 +249,6 @@ var answersContainer = questionUi.answersContainer;
 var prevBtn = questionUi.prevBtn;
 var nextBtn = questionUi.nextBtn;
 var submitBtn = questionUi.submitBtn;
-console.log(submitBtn);
 
 // ^^===============================Questions Initialization===========================:
 

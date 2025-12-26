@@ -119,7 +119,6 @@ function resultGuard() {
 // **===================================LOADER================================:
 
 function toggleLoader() {
-  console.log(loaderContainer);
   loaderContainer.style.display = "block";
   setTimeout(function () {
     loaderContainer.style.display = "none";
@@ -155,6 +154,7 @@ function renderQuestion(index) {
 
     appendElements([answerNode], answersContainer);
   });
+  clickInInput();
 }
 
 // !!===============================Rendering===========================
@@ -180,7 +180,6 @@ function updateNextBtnState() {
 }
 
 function updateSubmitBtnState() {
-  console.log(!studentAnsweredAll());
   submitBtn.disabled = !studentAnsweredAll();
 }
 
@@ -199,17 +198,21 @@ function getScore() {
 
     if (studentAnswers[idx] === correctIndex) score++;
   });
+  var total = questions.length;
+  var percentage = Math.round((score / total) * 100);
 
   quizState.score = score;
-
-  alert("Your score is: " + score + " / " + questions.length);
+  quizState.total = total;
+  quizState.percentage = percentage;
 }
 
 function saveUserScore() {
   userLogin.userScore = quizState.score;
   var userScores = {
     userEmail: userLogin.userEmail,
-    userScore: userLogin.userEmail,
+    userScore: userLogin.userScore,
+    totalQuestions: quizState.total,
+    userScorePercentage: quizState.percentage,
     scoreDate: new Date(),
   };
   localStorage.setItem("logins", JSON.stringify(userLogin));
@@ -262,11 +265,11 @@ submitBtn.addEventListener("click", function () {
 // ^^===============================ExamTimer===========================:
 
 var examTimerId, examTimerInterval;
-var timeLeft = 70000; //Exam time in seconds.
+var timeLeft = 1200; //Exam time in seconds.
 var second = 1000; //Second value as milliSecond.
 var examTimeInMilli = timeLeft * second; //Exam time in milliSeconds.
 var progessPercentageIncrease = 100 / (examTimeInMilli / second);
-var currentProgessbArWidth = 0;
+var currentProgessWidth = 0;
 
 var timeToDisplay = "";
 var timeCounter = headerUI.timeCounter;
@@ -278,8 +281,19 @@ function changeTimeInCounter() {
   timeCounter.textContent = timeToDisplay;
 }
 
+function secondsToMinutesAndSeconds(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60); // Get the number of full minutes
+  const seconds = totalSeconds % 60; // Get the remaining seconds
+
+  // Use String.prototype.padStart() to ensure two digits for the display
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(seconds).padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
 function changeTimeColor() {
-  var progress = currentProgessbArWidth / 100;
+  var progress = currentProgessWidth / 100;
 
   var startColor = { r: 37, g: 99, b: 235 }; // --action-color
   var warnColor = { r: 251, g: 191, b: 36 }; // --warning-color
@@ -327,23 +341,12 @@ function eachSecond() {
   changeTime();
   changeTimeInCounter();
   needPulse(timeLeft);
-  progresBar.style.width = currentProgessbArWidth + "%";
+  progresBar.style.width = currentProgessWidth + "%";
 }
 
 function changeTime() {
   timeLeft--;
-  currentProgessbArWidth += progessPercentageIncrease;
-}
-
-function secondsToMinutesAndSeconds(totalSeconds) {
-  const minutes = Math.floor(totalSeconds / 60); // Get the number of full minutes
-  const seconds = totalSeconds % 60; // Get the remaining seconds
-
-  // Use String.prototype.padStart() to ensure two digits for the display
-  const formattedMinutes = String(minutes).padStart(2, "0");
-  const formattedSeconds = String(seconds).padStart(2, "0");
-
-  return `${formattedMinutes}:${formattedSeconds}`;
+  currentProgessWidth += progessPercentageIncrease;
 }
 
 function examTimer() {
@@ -367,7 +370,22 @@ function examTimer() {
 
 // **===============================Start===========================:
 examTimer();
-// renderQuestion();
 renderQuestion(0);
+
+function clickInInput() {
+  var inputsWrappers = document.querySelectorAll(".checkbox-wrapper");
+  inputsWrappers.forEach(function (wrapper) {
+    wrapper.addEventListener("click", (e) => {
+      var input = wrapper.querySelector("input");
+      console.log(wrapper);
+      if (input.name === "answer") {
+        studentAnswers[quizState.currentQuestionIndex] = Number(input.value);
+        updateSubmitBtnState();
+      }
+      console.log(studentAnswers);
+      input.checked = true;
+    });
+  });
+}
 
 // **===============================Start===========================

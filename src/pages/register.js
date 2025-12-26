@@ -21,7 +21,7 @@ var confirmWarning = document.querySelector(".confirm-password-warning");
 
 // Regex Patterns
 var nameRegex = /^[a-zA-Z\s]{3,}$/; // At least 3 characters, letters and spaces only
-var emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/; // Standard Email format
+var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard Email format
 var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; /// Allows special characters, requires 1 letter, 1 number, and 8+ length
 
 // **===================================GUARD================================:
@@ -108,10 +108,6 @@ function updateButtonState() {
   registerBtn.disabled = !validForm;
 }
 
-function routing(route) {
-  window.pathname.href = route;
-}
-
 inputDiv.forEach(function (currentInput) {
   var nextSibling = currentInput.nextElementSibling;
 
@@ -157,7 +153,7 @@ registerationForm.addEventListener("submit", function (e) {
       addUser(inputName, inputEmail, inputPassword);
       lanuchToast("Registration Successful", toastTime, "d-flex");
       setTimeout(function () {
-        routing("login.html");
+        routing("/pages/login.html");
       }, toastTime);
     }
   }
