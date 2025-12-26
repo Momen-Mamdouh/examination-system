@@ -524,6 +524,10 @@ main.auth-main section.auth div.auth-card .input-area span {
   .auth {
     flex-direction: column;
   }
+  main.auth-main section.auth div.auth-card {
+    border-radius: calc(var(--main-border-radius) * 3);
+  }
+
   main.auth-main section.auth .card-img {
     display: none;
   }

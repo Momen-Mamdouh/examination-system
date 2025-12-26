@@ -32,7 +32,7 @@ function routing(route) {
 
 // !!===================================Assem================================
 // reading results from the localStorage
-var raw = localStorage.getItem("quizResults");
+var raw = localStorage.getItem("allScores");
 var data = raw ? JSON.parse(raw) : null;
 
 function el(tag, className, text) {
@@ -69,9 +69,10 @@ box.appendChild(backLink);
 if (!data) {
   msgEl.textContent = "No result found. Please take the exam first.";
 } else {
-  var percentage = Number(data.percentage) || 0;
-  var score = Number(data.score) || 0;
-  var total = Number(data.total) || 0;
+  console.log(data);
+  var percentage = Number(data.userScorePercentage) || 0;
+  var score = Number(data.userScore) || 0;
+  var total = Number(data.totalQuestions) || 0;
 
   // circle style
   circle.style.background =

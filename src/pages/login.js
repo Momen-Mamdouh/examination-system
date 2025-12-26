@@ -17,7 +17,7 @@ var emailWarning = document.querySelector(".email-warning");
 var passwordWarning = document.querySelector(".password-warning");
 
 // Regex Patterns
-var emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/; // Standard Email format
+var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard Email format
 var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/; /// Allows special characters, requires 1 letter, 1 number, and 8+ length
 
 // **===================================GUARD================================:
