@@ -1,3 +1,6 @@
+var loaderContainer = document.getElementById("loader-container");
+var userLogin = JSON.parse(localStorage.getItem("logins")) || {};
+toggleLoader();
 // !!================================Data=================================:
 
 var questions = [
@@ -98,206 +101,273 @@ var quizState = {
   score: 0,
 };
 
-var studentAnswers = Array(questions.length).fill(null) //add student Answers
+var studentAnswers = Array(questions.length).fill(null); //add student Answers
 
 var questionDiv, questionTitle, answersContainer;
 
 // !!================================Data=================================
 
-// !!================================Selections=================================:
-
-var questionSection = document.querySelector("section.question-section");
-
-// !!================================Selections=================================
-
-// **===============================Intializing===========================:
-
-function intializeQuestionSection() {
-  questionDiv = createEle("div");
-  questionTitle = createEle("h1");
-  answersContainer = createEle("div");
-
-  questionDiv.classList.add("question", "flex");
-  questionTitle.classList.add("question-title");
-  answersContainer.classList.add("answers-container");
-
-  appendElements([questionDiv, answersContainer], questionSection);
-  appendElements([questionTitle], questionDiv);
-}
-
-intializeQuestionSection();
-
-// **===============================Intializing===========================
-
-// ^^===============================Creation===========================:
-
-function createEle(createdTag) {
-  var htmlElement = document.createElement(createdTag);
-  return htmlElement;
-}
-
-function createAnswer(choiceText, idx) {
-  var answer = createEle("div");
-  var answerLabel = createEle("label");
-  var answerInput = createEle("input");
-  answer.classList.add("answer");
-  var inputId = "choice-" + idx;
-
-  addAttributes(answerLabel, [{ key: "for", value: inputId }]);
-  addAttributes(answerInput, [
-    { key: "name", value: "answer" },
-    { key: "id", value: inputId },
-    { key: "type", value: "radio" },
-    { key: "value", value: idx }, //add value to 
-  ]);
-
-  answerLabel.textContent = choiceText;
-  appendElements([answerLabel, answerInput], answer);
-  return answer;
-}
-
-// ^^===============================Creation===========================
-
-// !!===============================Removing===========================:
-
-function removeElements(parent) {
-  while (parent.firstElementChild) {
-    parent.firstElementChild.remove();
+// **===================================GUARD================================:
+resultGuard();
+function resultGuard() {
+  if (userLogin && typeof userLogin.userScore === "number") {
+    window.location.replace("/pages/result.html");
   }
 }
+// **===================================GUARD================================:
 
-// !!===============================Removing===========================
+// **===================================LOADER================================:
 
-// ??===============================Adding===========================:
-
-function appendElements(childs, parent) {
-  childs.forEach(function (childItem, idx) {
-    parent.appendChild(childItem);
-  });
+function toggleLoader() {
+  console.log(loaderContainer);
+  loaderContainer.style.display = "block";
+  setTimeout(function () {
+    loaderContainer.style.display = "none";
+  }, 2000);
 }
 
-function addAttributes(element, attributes) {
-  attributes.forEach(function (attr, idx) {
-    element.setAttribute(attr.key, attr.value);
-  });
+function routing(route) {
+  toggleLoader();
+  window.location.pathname = route;
 }
+
+// **===================================LOADER================================:
+
+// !!===============================Rendering===========================:
 
 function renderQuestion(index) {
-  updateNextBtnState() // update btn state if it should be disabled or not
-  updatePrevBtnState() // update btn state if it should be disabled or not
+  updatePrevBtnState();
+  updateNextBtnState();
+  updateSubmitBtnState();
+
   var currentQuestion = questions[index];
-  questionTitle.textContent = index + 1 + ". " + currentQuestion.question;
+  questionTitle.textContent = index + 1 + ".Question:";
+  questionText.textContent = currentQuestion.question;
 
   removeElements(answersContainer);
+
   currentQuestion.choices.forEach(function (choice, idx) {
     var answerNode = createAnswer(choice.text, idx + 1);
-    // adding selected answer by student
-    var questionIndex = index
-    var savedAnswer = studentAnswers[questionIndex]
-    if(savedAnswer == idx+1){
-      var input = answerNode.querySelector("input");
-      input.checked = true
+
+    if (studentAnswers[index] == idx + 1) {
+      answerNode.querySelector("input").checked = true;
     }
-    answersContainer.appendChild(answerNode);
+
+    appendElements([answerNode], answersContainer);
   });
 }
 
-// ??===============================Adding===========================
-// ??=============================== prev-btn ===========================
-function createPrevBtn (){
-  var prevBtn = createEle('button')
-  prevBtn.textContent = 'prev'
-  prevBtn.classList.add('prev-btn')
-  prevBtn.disabled= true
-  questionSection.appendChild(prevBtn)
-  return prevBtn
-} 
+// !!===============================Rendering===========================
 
-var prevBtn = createPrevBtn()
+// ^^===============================Update-States===========================:
 
-prevBtn.addEventListener('click', function(){
-  if(quizState.currentQuestionIndex > 0){
-    quizState.currentQuestionIndex--
-    renderQuestion(quizState.currentQuestionIndex)
-  }
-})
-
-
-
-// ??=============================== next-btn ===========================
-function createNextBtn (){
-  var nextBtn = createEle('button')
-  nextBtn.textContent = 'next'
-  nextBtn.classList.add('next-btn')
-  questionSection.appendChild(nextBtn)
-  return nextBtn
-} 
-
-var nextBtn = createNextBtn()
-
-// event listener
-nextBtn.addEventListener('click', function(){
-    quizState.currentQuestionIndex++
-    renderQuestion(quizState.currentQuestionIndex)
-})
-
-
-// update buttons state 
-function updateNextBtnState(){
-  if(quizState.currentQuestionIndex < questions.length-1){
-    nextBtn.disabled = false
-  }
-  else{
-    nextBtn.disabled = true
-  }
-}
-
-function updatePrevBtnState(){
-  if(quizState.currentQuestionIndex == 0){
-    prevBtn.disabled = true
-  }
-  else{
-    prevBtn.disabled = false
-  }
-}
-
-// submit button 
-function createSubmitBtn (){
-  var submitBtn = createEle('button')
-  submitBtn.textContent = 'submit'
-  submitBtn.classList.add('submit-btn')
-  questionSection.appendChild(submitBtn)
-  return submitBtn
-} 
-
-var submitBtn = createSubmitBtn()
-
-
-submitBtn.addEventListener('click', function(){
-  var score = 0
-  questions.forEach(function(question, questionIndex){
-    var correctAnswerIndex = question.choices.findIndex(function(choice){
-      return choice.isCorrect
-    })
-    var correctAnswerValue = correctAnswerIndex+1
-    studentAnswer = studentAnswers[questionIndex]
-    if(studentAnswer == correctAnswerValue){
-      score++
+function studentAnsweredAll() {
+  var allAnswered = false;
+  for (let i = 0; i < studentAnswers.length; i++) {
+    if (studentAnswers[i]) {
+      allAnswered = true;
+      continue;
+    } else {
+      allAnswered = false;
+      break;
     }
-    
-  })
-  quizState.score = score;
-  console.log("Final score:", score, "/", questions.length);
-  alert("Your score is: " + score + " / " + questions.length);
-})
-// add event listener when selecting an answer
-answersContainer.addEventListener('change', function(e){
-  if(e.target.name == 'answer'){
-    var questionIndex = quizState.currentQuestionIndex
-    var answerIndex = Number(e.target.value)
-    studentAnswers[questionIndex] = answerIndex
   }
-  console.log(studentAnswers)
-})
-// start rendering first question
-renderQuestion(0); //moved to bottom 
+  return allAnswered;
+}
+
+function updateNextBtnState() {
+  nextBtn.disabled = quizState.currentQuestionIndex >= questions.length - 1;
+}
+
+function updateSubmitBtnState() {
+  console.log(!studentAnsweredAll());
+  submitBtn.disabled = !studentAnsweredAll();
+}
+
+function updatePrevBtnState() {
+  prevBtn.disabled = quizState.currentQuestionIndex === 0;
+}
+
+function getScore() {
+  var score = 0;
+
+  questions.forEach(function (question, idx) {
+    var correctIndex =
+      question.choices.findIndex(function (c) {
+        return c.isCorrect;
+      }) + 1;
+
+    if (studentAnswers[idx] === correctIndex) score++;
+  });
+
+  quizState.score = score;
+
+  alert("Your score is: " + score + " / " + questions.length);
+}
+
+function saveUserScore() {
+  userLogin.userScore = quizState.score;
+  var userScores = {
+    userEmail: userLogin.userEmail,
+    userScore: userLogin.userEmail,
+    scoreDate: new Date(),
+  };
+  localStorage.setItem("logins", JSON.stringify(userLogin));
+  localStorage.setItem("allScores", JSON.stringify(userScores));
+}
+
+function resetQuestionPage() {
+  quizState = {
+    currentQuestionIndex: 0,
+    score: 0,
+  };
+  // studentAnswers = [];
+  studentAnswers.fill(null);
+  renderQuestion(0);
+  updateNextBtnState();
+  updateSubmitBtnState();
+  updatePrevBtnState();
+}
+
+// ^^===============================Update-States===========================
+
+// !!===============================Events===========================:
+
+prevBtn.addEventListener("click", function () {
+  quizState.currentQuestionIndex--;
+  renderQuestion(quizState.currentQuestionIndex);
+});
+
+nextBtn.addEventListener("click", function () {
+  quizState.currentQuestionIndex++;
+  renderQuestion(quizState.currentQuestionIndex);
+});
+
+answersContainer.addEventListener("change", function (e) {
+  if (e.target.name === "answer") {
+    studentAnswers[quizState.currentQuestionIndex] = Number(e.target.value);
+    updateSubmitBtnState();
+  }
+});
+
+submitBtn.addEventListener("click", function () {
+  getScore();
+  saveUserScore();
+  resetQuestionPage();
+  routing("pages/result.html");
+});
+
+// !!===============================Events===========================
+
+// ^^===============================ExamTimer===========================:
+
+var examTimerId, examTimerInterval;
+var timeLeft = 70000; //Exam time in seconds.
+var second = 1000; //Second value as milliSecond.
+var examTimeInMilli = timeLeft * second; //Exam time in milliSeconds.
+var progessPercentageIncrease = 100 / (examTimeInMilli / second);
+var currentProgessbArWidth = 0;
+
+var timeToDisplay = "";
+var timeCounter = headerUI.timeCounter;
+var timeClockIcon = headerUI.timeIcon;
+var progresBar = headerUI.progressBar;
+
+function changeTimeInCounter() {
+  timeToDisplay = secondsToMinutesAndSeconds(timeLeft);
+  timeCounter.textContent = timeToDisplay;
+}
+
+function changeTimeColor() {
+  var progress = currentProgessbArWidth / 100;
+
+  var startColor = { r: 37, g: 99, b: 235 }; // --action-color
+  var warnColor = { r: 251, g: 191, b: 36 }; // --warning-color
+  var endColor = { r: 239, g: 68, b: 68 }; // --error-color
+
+  var r, g, b;
+
+  if (progress < 0.5) {
+    // Blue → Yellow
+    var time = progress / 0.5;
+    r = startColor.r + time * (warnColor.r - startColor.r);
+    g = startColor.g + time * (warnColor.g - startColor.g);
+    b = startColor.b + time * (warnColor.b - startColor.b);
+  } else {
+    // Yellow → Red
+    var time = (progress - 0.5) / 0.5;
+    r = warnColor.r + time * (endColor.r - warnColor.r);
+    g = warnColor.g + time * (endColor.g - warnColor.g);
+    b = warnColor.b + time * (endColor.b - warnColor.b);
+  }
+
+  var currentColor = "rgb(" + (r | 0) + "," + (g | 0) + "," + (b | 0) + ")";
+  timeCounter.style.color = currentColor;
+  timeClockIcon.style.color = currentColor;
+  progresBar.style.backgroundColor = currentColor;
+}
+
+function stopClock() {
+  timeClockIcon.classList.remove("fa-solid", "fa-hourglass-end", "fa-spin");
+  timeClockIcon.classList.add("fa-regular", "fa-clock");
+}
+
+function needPulse(timeLeft) {
+  if (timeLeft <= 60 && timeLeft > 0) {
+    timeCounter.classList.add("pulse");
+    timeClockIcon.classList.add("pulse");
+  } else {
+    timeCounter.classList.remove("pulse");
+    timeClockIcon.classList.remove("pulse");
+  }
+}
+
+function eachSecond() {
+  changeTimeColor();
+  changeTime();
+  changeTimeInCounter();
+  needPulse(timeLeft);
+  progresBar.style.width = currentProgessbArWidth + "%";
+}
+
+function changeTime() {
+  timeLeft--;
+  currentProgessbArWidth += progessPercentageIncrease;
+}
+
+function secondsToMinutesAndSeconds(totalSeconds) {
+  const minutes = Math.floor(totalSeconds / 60); // Get the number of full minutes
+  const seconds = totalSeconds % 60; // Get the remaining seconds
+
+  // Use String.prototype.padStart() to ensure two digits for the display
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(seconds).padStart(2, "0");
+
+  return `${formattedMinutes}:${formattedSeconds}`;
+}
+
+function examTimer() {
+  changeTimeInCounter();
+
+  examTimerInterval = setInterval(function () {
+    if (timeLeft > 0) {
+      eachSecond();
+    } else {
+      clearInterval(examTimerInterval);
+      stopClock();
+      getScore();
+      saveUserScore();
+      resetQuestionPage();
+      routing("pages/result.html");
+    }
+  }, second);
+}
+
+// ^^===============================ExamTimer===========================
+
+// **===============================Start===========================:
+examTimer();
+// renderQuestion();
+renderQuestion(0);
+
+// **===============================Start===========================
