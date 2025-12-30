@@ -1,111 +1,35 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --primary-color: #0f172a;
-  --main-bg-color: #e5e7eb;
-  --main-white-color: #fafafa;
-  --primary-text-color: #1f2933;
-  --secondary-text-color: #6b7280;
-  --action-color: #2563eb;
-  --success-color: #10b981;
-  --error-color: #ef4444;
-  --warning-color: #fbbf24;
-
-  --main-space: 12px;
-  --max-space: 48px;
-  --main-border-radius: 5px;
-  --card-border-radius: 12px;
-
-  --main-font-size: 1rem;
-  --main-heading-size: 2rem;
-
-  --main-transitions: all 0.5s ease-in-out;
-}
-
-/* **=====================================Loader============================= */
-
+/* !!=====================================Asssem============================= */
 #loader-container {
   position: relative;
-  background-color: #000000;
-  min-width: 99vw;
-  min-height: 100vh;
+}
+main {
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.loader {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-60%, -50%);
-  width: 100px;
-  z-index: 5;
-  aspect-ratio: 1.154;
-  background: conic-gradient(
-    from 120deg at 50% 64%,
-    #0000,
-    var(--action-color) 1deg 120deg,
-    #0000 121deg
-  );
-  animation: l27-0 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
-}
-.loader:before,
-.loader:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  background: inherit;
-  transform-origin: 50% 66%;
-  animation: l27-1 1.5s infinite;
-}
-.loader:after {
-  --s: -1;
-  z-index: 5;
-}
-@keyframes l27-0 {
-  0%,
-  30% {
-    transform: rotate(0);
-  }
-  70% {
-    transform: rotate(120deg);
-  }
-  70.01%,
-  100% {
-    transform: rotate(360deg);
-  }
-}
-@keyframes l27-1 {
-  0% {
-    transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
-  }
-  30%,
-  70% {
-    transform: rotate(calc(var(--s, 1) * 120deg))
-      translate(calc(var(--s, 1) * -5px), 10px);
-  }
-  100% {
-    transform: rotate(calc(var(--s, 1) * 120deg)) translate(0);
-  }
-}
-/* **=====================================Loader============================= */
-
-/* !!=====================================Asssem============================= */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+  background-color: var(--main-bg-color);
+  color: var(--primary-text-color);
   min-height: 100vh;
   display: grid;
   place-items: center;
+  transition: var(--main-transitions);
+  overflow: hidden;
 }
 
 .box {
   width: 320px;
   text-align: center;
+  color: var(--primary-text-color);
+  background-color: var(--main-white-color);
+  border-radius: var(--card-border-radius);
+  padding: 24px;
+  box-shadow: var(--main-box-shadow);
+  transition: var(--main-transitions);
 }
 
 .circle {
@@ -113,23 +37,62 @@ body {
   height: 200px;
   margin: 16px auto;
   border-radius: 50%;
-  background: conic-gradient(#22c55e 0%, #334155 0%); /* JS هيغير النسبة */
+  /* Default background using progress variable for the "empty" part */
+  background: conic-gradient(
+    var(--action-color) 0%,
+    var(--main-progress-color) 0%
+  );
   display: grid;
   place-items: center;
+  transition: var(--main-transitions);
+  gap: 50px;
 }
 
 .inside {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: #0b1220;
+  /* Match inside background to the box surface */
+  background: var(--main-white-color);
   display: grid;
   place-items: center;
+  justify-content: center;
+  transition: var(--main-transitions);
 }
 
-a {
-  color: #93c5fd;
+.inside p {
+  align-self: self-start;
+  font-weight: bold;
+  margin: 12px 0;
+  color: var(--primary-text-color);
+}
+.inside h2 {
+  margin-bottom: 20px;
+  align-self: self-end;
+  color: var(--primary-text-color);
+}
+
+.result-msg {
+  margin-top: var(--main-space);
+  color: var(--secondary-text-color);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.btns-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--main-space);
+}
+
+a.main-btn,
+button.main-btn {
   text-decoration: none;
+  margin: 12px 0;
+  padding: calc(var(--main-space) * 0.5) calc(var(--main-space) * 2);
+  color: var(--main-white-color);
 }
 
+/* !!=====================================Asssem============================= */
 /* !!=====================================Asssem============================= */

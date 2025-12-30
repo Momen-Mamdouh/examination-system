@@ -90,7 +90,6 @@ function initializeAuthSection(parent) {
   var section = createEle("section");
   section.classList.add("auth");
 
-  // ===== auth card =====
   var authCard = createEle("div");
   authCard.classList.add("auth-card", "main-card-box-shadow");
 
@@ -101,11 +100,9 @@ function initializeAuthSection(parent) {
   var form = createEle("form");
   form.classList.add("auth-form");
 
-  // ===== input area =====
   var inputArea = createEle("div");
   inputArea.classList.add("input-area");
 
-  // email input
   var emailDiv = createEle("div");
   emailDiv.classList.add("input-div");
 
@@ -125,12 +122,11 @@ function initializeAuthSection(parent) {
   appendElements([emailInput, emailIcon], emailDiv);
 
   var emailWarning = createEle("span");
-  emailWarning.classList.add("email-warning");
+  emailWarning.classList.add("span-warning", "email-warning");
   addAttributes(emailWarning, [
     { key: "data-err-message", value: "Please enter a valid email address" },
   ]);
 
-  // password input
   var passwordDiv = createEle("div");
   passwordDiv.classList.add("input-div");
 
@@ -141,7 +137,7 @@ function initializeAuthSection(parent) {
     { key: "name", value: "password" },
     { key: "id", value: "password" },
     { key: "placeholder", value: "Password" },
-    { key: "pattern", value: "^(?=.*[A-Za-z])(?=.*\\d).{8,}$" },
+    // { key: "pattern", value: "^(?=.*[A-Za-z])(?=.*\\d).{8,}$" },
   ]);
 
   var eyeIcon = createEle("i");
@@ -153,7 +149,7 @@ function initializeAuthSection(parent) {
   appendElements([passwordInput, eyeIcon, lockIcon], passwordDiv);
 
   var passwordWarning = createEle("span");
-  passwordWarning.classList.add("password-warning");
+  passwordWarning.classList.add("span-warning", "password-warning");
   addAttributes(passwordWarning, [
     {
       key: "data-err-message",
@@ -166,7 +162,6 @@ function initializeAuthSection(parent) {
     inputArea
   );
 
-  // ===== submit area =====
   var submitArea = createEle("div");
   submitArea.classList.add("submit-area");
 
@@ -185,11 +180,9 @@ function initializeAuthSection(parent) {
   appendElements([registerText], registerAside);
   appendElements([submitBtn, registerAside], submitArea);
 
-  // assemble form
   appendElements([inputArea, submitArea], form);
   appendElements([cardHeader, form], authCard);
 
-  // ===== image card =====
   var cardImg = createEle("div");
   cardImg.classList.add("card-img");
 
@@ -201,11 +194,9 @@ function initializeAuthSection(parent) {
 
   appendElements([img], cardImg);
 
-  // assemble auth section
   appendElements([authCard, cardImg], section);
   appendElements([section], parent);
 
-  // ===== toast =====
   var toast = createEle("div");
   addAttributes(toast, [{ key: "id", value: "toast" }]);
 

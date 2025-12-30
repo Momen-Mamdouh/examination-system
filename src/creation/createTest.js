@@ -55,11 +55,12 @@ function createIconButton(text, iconClass, classes, parent, disabled) {
   });
 
   if (disabled) btn.disabled = true;
+  if (iconClass) {
+    var icon = createEle("i");
+    icon.classList.add("fa-solid", iconClass);
+    btn.appendChild(icon);
+  }
 
-  var icon = createEle("i");
-  icon.classList.add("fa-solid", iconClass);
-
-  btn.appendChild(icon);
   btn.appendChild(document.createTextNode(" " + text));
 
   appendElements([btn], parent);
@@ -185,13 +186,13 @@ function initializeQuestionLayout(parent) {
 
   appendElements([questionTitle, questionText, answersContainer], questionDiv);
 
-  // mark sidebar
   var markSidebar = createEle("div");
+  var sidebarTitle = createEle("h2");
+  sidebarTitle.textContent = "Marked Questions: ";
   markSidebar.classList.add("mark-sidebar");
 
-  appendElements([questionDiv, markSidebar], section);
+  appendElements([sidebarTitle], markSidebar);
 
-  // buttons container
   var btnsContainer = createEle("div");
   btnsContainer.classList.add("question-btns");
 
@@ -226,10 +227,12 @@ function initializeQuestionLayout(parent) {
   );
 
   // insert into DOM
-  appendElements([section, btnsContainer], parent);
+  appendElements([questionDiv, btnsContainer, markSidebar], section);
+  appendElements([section], parent);
 
   // expose ONLY what logic needs
   return {
+    questionDiv,
     questionTitle,
     questionText,
     answersContainer,

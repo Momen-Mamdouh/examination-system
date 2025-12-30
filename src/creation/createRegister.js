@@ -124,7 +124,7 @@ function initializeRegisterSection(parent) {
   appendElements([nameInput, nameIcon], nameDiv);
 
   var nameWarning = createEle("span");
-  nameWarning.classList.add("fullname-warning");
+  nameWarning.classList.add("fullname-warning", "span-warning");
   addAttributes(nameWarning, [
     {
       key: "data-err-message",
@@ -152,7 +152,7 @@ function initializeRegisterSection(parent) {
   appendElements([emailInput, emailIcon], emailDiv);
 
   var emailWarning = createEle("span");
-  emailWarning.classList.add("email-warning");
+  emailWarning.classList.add("email-warning", "span-warning");
   addAttributes(emailWarning, [
     { key: "data-err-message", value: "Please enter a valid email address" },
   ]);
@@ -180,7 +180,7 @@ function initializeRegisterSection(parent) {
   appendElements([passwordInput, eyeIcon1, lockIcon1], passwordDiv);
 
   var passwordWarning = createEle("span");
-  passwordWarning.classList.add("password-warning");
+  passwordWarning.classList.add("password-warning", "span-warning");
   addAttributes(passwordWarning, [
     {
       key: "data-err-message",
@@ -211,7 +211,7 @@ function initializeRegisterSection(parent) {
   appendElements([confirmInput, eyeIcon2, lockIcon2], confirmDiv);
 
   var confirmWarning = createEle("span");
-  confirmWarning.classList.add("confirm-password-warning");
+  confirmWarning.classList.add("confirm-password-warning", "span-warning");
   addAttributes(confirmWarning, [
     { key: "data-err-message", value: "Passwords do not match" },
   ]);
