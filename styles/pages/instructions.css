@@ -1,0 +1,257 @@
+/** ===========================================  LAYOUT & CONTAINERS =========================================== */
+
+.body-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: auto;
+  padding: var(--max-space) 0;
+  opacity: 1;
+}
+
+/** ===========================================  LAYOUT & CONTAINERS =========================================== */
+
+/** ===========================================HEADER SECTION=========================================== */
+
+.Top-header {
+  text-align: center;
+  margin-bottom: var(--max-space);
+}
+
+.Top-header .icon-main {
+  margin-bottom: var(--main-space);
+  color: var(--action-color);
+}
+
+.Top-header .main-btn {
+  padding: calc(var(--main-space) * 0.5) calc(var(--main-space) * 2);
+}
+
+.Top-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary-text-color);
+  margin-bottom: calc(var(--main-space) / 2);
+}
+
+.Top-header p {
+  font-size: 1.2rem;
+  color: var(--secondary-text-color);
+  margin-bottom: var(--main-space);
+}
+
+.exam-details {
+  display: flex;
+  justify-content: center;
+  gap: calc(var(--main-space) * 2);
+  color: var(--secondary-text-color);
+  font-weight: 500;
+}
+
+.exam-details div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/** ===========================================HEADER SECTION=========================================== */
+
+/** =========================================== STATS CARDS GRID=========================================== */
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: calc(var(--main-space) * 2);
+  margin-bottom: var(--max-space);
+}
+
+.cards-container .card {
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cards-container .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card i {
+  font-size: 1.8rem;
+  color: var(--action-color);
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.card:hover i {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.card p {
+  color: var(--secondary-text-color);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: calc(var(--main-space) * 0.5) 0;
+}
+
+.card span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-text-color);
+}
+
+/** =========================================== STATS CARDS GRID=========================================== */
+
+/** =========================================== INSTRUCTIONS SECTION =========================================== */
+
+.instructions-sec {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--main-space) * 2);
+  align-items: start;
+}
+
+.instructions-card {
+  text-align: left;
+}
+
+.instructions-card .title {
+  display: flex;
+  align-items: center;
+  gap: var(--main-space);
+  margin-bottom: calc(var(--main-space));
+  color: var(--action-color);
+}
+
+.instructions-ordered p {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--main-space);
+  line-height: 1.6;
+  margin-bottom: calc(var(--main-space) * 1.5);
+  color: var(--primary-text-color);
+  padding: 8px;
+  border-radius: var(--main-border-radius);
+  transition: background 0.3s ease;
+}
+
+.instructions-ordered p:hover {
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.instructions-ordered span.instruction {
+  background-color: var(--action-color);
+  color: var(--main-white-color);
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.instructions-ordered span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.instructions-ordered .instruction:hover {
+  transform: scale(1.2);
+}
+
+/** =========================================== INSTRUCTIONS SECTION =========================================== */
+
+/** =========================================== RIGHT SIDE (TIPS & NOTICE) =========================================== */
+
+.r-side {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--main-space) * 2);
+}
+
+.r-side .card .title {
+  display: flex;
+  gap: 10px;
+  margin-bottom: calc(var(--main-space) * 2);
+}
+
+.r-side .card .title h2 {
+  color: var(--action-color);
+}
+
+.Tips div {
+  display: flex;
+  align-items: center;
+  gap: var(--main-space);
+  margin: calc(var(--main-space) * 1.5) 0;
+}
+
+.notice-card {
+  background-color: rgba(251, 191, 36, 0.1);
+  border-left: 4px solid var(--warning-color);
+  padding: calc(var(--main-space) * 1.5);
+  border-radius: var(--main-border-radius);
+  transition: transform 0.3s ease;
+}
+
+.notice-card:hover {
+  transform: scale(1.01);
+}
+
+.notice-card h2 {
+  color: #856404;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.notice-card p {
+  font-size: 0.95rem;
+  color: #856404;
+  line-height: 1.4;
+}
+
+/** =========================================== RIGHT SIDE (TIPS & NOTICE) =========================================== */
+
+/** ===========================================  START BUTTON =========================================== */
+
+.button-div {
+  text-align: center;
+  margin-top: var(--max-space);
+}
+
+.start-btn {
+  display: inline-block;
+  padding: 16px 80px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  background-color: var(--action-color);
+  color: var(--main-white-color);
+  box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.start-btn:hover {
+  background-color: var(--action-hover);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.5);
+}
+
+.start-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/** ===========================================  START BUTTON =========================================== */
+
+/*^^ ===========================================Media_Query=========================================== */
+
+@media (min-width: 1024px) {
+  .instructions-sec {
+    grid-template-columns: 1.6fr 1fr;
+  }
+}
+
+/*^^ ===========================================Media_Query=========================================== */

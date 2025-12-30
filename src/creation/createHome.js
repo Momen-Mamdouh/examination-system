@@ -4,27 +4,7 @@ function createEle(tag) {
   return document.createElement(tag);
 }
 
-function addAttributes(element, attributes) {
-  attributes.forEach(function (attr) {
-    element.setAttribute(attr.key, attr.value);
-  });
-}
-
-function createButton(text, className, parent, disabled) {
-  var btn = createEle("button");
-  btn.textContent = text;
-  btn.classList.add(className);
-  if (disabled) btn.disabled = true;
-  appendElements([btn], parent);
-  return btn;
-}
-
-// ^^===============================Creation===========================:
-
-// ??===============================Insertion===========================:
-
 function appendElements(children, parent) {
-  console.log(children);
   children.forEach(function (child) {
     parent.appendChild(child);
   });
@@ -36,98 +16,230 @@ function removeElements(parent) {
   }
 }
 
-// ??===============================Insertion===========================
+function createIcon(className) {
+  var i = createEle("i");
+  i.className = className;
+  return i;
+}
+
+function createTextElement(tag, text) {
+  var el = createEle(tag);
+  el.textContent = text;
+  return el;
+}
+
+// ^^===============================Creation===========================
+
+// ??===============================Helpers===========================:
+
+function getTodayDate() {
+  var options = { year: "numeric", month: "short", day: "2-digit" };
+  return new Date().toLocaleDateString("en-US", options);
+}
+
+// ??===============================Helpers===========================
 
 // **===============================Instructions Creation===========================:
 
 function initializeInstructionsSection(parent) {
-  var section = createEle("section");
-  section.classList.add("instructions", "container");
+  var bodyContainer = createEle("div");
+  bodyContainer.classList.add("body-container");
 
-  // title
-  var heading = createEle("h3");
-  heading.textContent = "Exam instructions";
+  var header = createEle("header");
+  header.classList.add("Top-header");
 
-  // list
-  var list = createEle("ul");
-  list.classList.add("instructions-list");
+  var signoutBtn = createEle("button");
+  signoutBtn.classList.add("main-btn", "signout-btn");
+  signoutBtn.textContent = "Sign Out";
+  signoutBtn.style.position = "absolute";
+  signoutBtn.style.right = "20px";
+  signoutBtn.style.top = "20px";
+
+  var iconDiv = createEle("div");
+  iconDiv.classList.add("icon-main");
+  appendElements([createIcon("fa-solid fa-graduation-cap fa-4x")], iconDiv);
+
+  var h1 = createTextElement("h1", "Final Examination");
+  var subP = createTextElement("p", "Computer Science Fundamentals");
+
+  var examDetails = createEle("div");
+  examDetails.classList.add("exam-details");
+
+  var timeDiv = createEle("div");
+  appendElements(
+    [createIcon("fa-regular fa-clock"), document.createTextNode(" 20 Minutes")],
+    timeDiv
+  );
+
+  var qDiv = createEle("div");
+  appendElements(
+    [
+      createIcon("fa-solid fa-list-check"),
+      document.createTextNode(" 10 Questions"),
+    ],
+    qDiv
+  );
+
+  appendElements([timeDiv, qDiv], examDetails);
+  appendElements([signoutBtn, iconDiv, h1, subP, examDetails], header);
+
+  var cardsContainer = createEle("div");
+  cardsContainer.classList.add("cards-container");
+
+  var cardsData = [
+    { icon: "fa-calendar-days", label: "Date", value: getTodayDate() },
+    { icon: "fa-hourglass-half", label: "Duration", value: "20 Minutes" },
+    { icon: "fa-pen-to-square", label: "Questions", value: "10 Questions" },
+    { icon: "fa-medal", label: "Pass Score", value: "60%" },
+  ];
+
+  cardsData.forEach(function (data) {
+    var card = createEle("div");
+    card.classList.add("card");
+
+    appendElements(
+      [
+        createIcon("fa-regular " + data.icon),
+        createTextElement("p", data.label),
+        createTextElement("span", data.value),
+      ],
+      card
+    );
+
+    cardsContainer.appendChild(card);
+  });
+
+  var instructionSec = createEle("div");
+  instructionSec.classList.add("instructions-sec");
+
+  var leftCard = createEle("div");
+  leftCard.classList.add("card", "instructions-card");
+
+  var titleDiv = createEle("div");
+  titleDiv.classList.add("title");
+
+  appendElements(
+    [
+      createIcon("fa-solid fa-clipboard-list fa-2x"),
+      createTextElement("h2", "Exam Instructions"),
+    ],
+    titleDiv
+  );
+
+  var listDiv = createEle("div");
+  listDiv.classList.add("instructions-ordered");
 
   var instructionsData = [
     {
       number: "1",
-      title: "MCQ Format",
-      text: "This is an MCQ exam; please select only one choice from the four options displayed for each question.",
+      text: "This is an MCQ exam; please select only one choice from the four options.",
     },
     {
       number: "2",
-      title: "Navigation",
-      text: "Use the Next and Prev buttons to move between questions. Note that navigation is restricted at the start and end of the exam.",
+      text: "Use Next and Prev buttons to navigate between questions.",
     },
     {
       number: "3",
-      title: "Mark for Review",
-      text: "Any question can be marked in the sidebar so you can jump back to it directly to choose or change your answer.",
+      text: "You can mark questions and return to them later from the sidebar.",
     },
     {
       number: "4",
-      title: "Completion",
-      text: "You cannot submit the exam if any questions are left unanswered. Ensure all fields are filled before finishing.",
+      text: "You must answer all questions before submitting the exam.",
     },
     {
       number: "5",
-      title: "Final Submission",
-      text: "Once you click submit, your answers are final. You cannot re-enter the exam, and your results will be displayed immediately.",
+      text: "Once submitted, answers are final and results appear immediately.",
     },
   ];
 
   instructionsData.forEach(function (item) {
-    var li = createEle("li");
-    li.classList.add("list-item");
+    var p = createEle("p");
+    var span = createEle("span");
+    span.classList.add("instruction");
+    span.textContent = item.number;
 
-    var header = createEle("div");
-    header.classList.add("list-header");
-
-    var number = createEle("span");
-    number.classList.add("list-number");
-    number.textContent = item.number;
-
-    var title = createEle("h4");
-    title.classList.add("title");
-    title.textContent = item.title;
-
-    appendElements([number, title], header);
-
-    var content = createEle("div");
-    content.classList.add("list-content");
-
-    var text = createEle("p");
-    text.classList.add("text");
-    text.textContent = item.text;
-
-    appendElements([text], content);
-    appendElements([header, content], li);
-    appendElements([li], list);
+    appendElements([span, document.createTextNode(item.text)], p);
+    listDiv.appendChild(p);
   });
 
-  // start button
-  var buttonWrapper = createEle("button");
-  addAttributes(buttonWrapper, [{ key: "type", value: "button" }]);
+  appendElements([titleDiv, listDiv], leftCard);
 
-  var startLink = createEle("a");
-  startLink.classList.add("main-btn", "start-btn");
-  addAttributes(startLink, [{ key: "href", value: "./pages/test.html" }]);
-  startLink.textContent = "Start";
+  var rSide = createEle("div");
+  rSide.classList.add("r-side");
 
-  appendElements([startLink], buttonWrapper);
+  var tipsCard = createEle("div");
+  tipsCard.classList.add("card", "tips-card");
 
-  // assemble section
-  appendElements([heading, list, buttonWrapper], section);
-  appendElements([section], parent);
+  var tipsTitle = createEle("div");
+  tipsTitle.classList.add("title");
 
-  return section;
+  appendElements(
+    [
+      createIcon("fa-solid fa-lightbulb fa-2x"),
+      createTextElement("h2", "Success Tips"),
+    ],
+    tipsTitle
+  );
+
+  var tipsContent = createEle("div");
+  tipsContent.classList.add("Tips");
+
+  function createTip(text) {
+    var d = createEle("div");
+    appendElements(
+      [createIcon("fa-solid fa-circle-check"), createTextElement("p", text)],
+      d
+    );
+    return d;
+  }
+
+  appendElements(
+    [
+      createTip("Manage time wisely — 1 min/question"),
+      createTip("Answer all questions — no penalties"),
+    ],
+    tipsContent
+  );
+
+  appendElements([tipsTitle, tipsContent], tipsCard);
+
+  var noticeCard = createEle("div");
+  noticeCard.classList.add("notice-card");
+
+  appendElements(
+    [
+      createTextElement("h2", "⚠️ Important Notice"),
+      createTextElement(
+        "p",
+        'Once you click "Start Exam", the timer begins immediately.'
+      ),
+    ],
+    noticeCard
+  );
+
+  appendElements([tipsCard, noticeCard], rSide);
+  appendElements([leftCard, rSide], instructionSec);
+
+  var btnDiv = createEle("div");
+  btnDiv.classList.add("button-div");
+
+  var startBtn = createEle("a");
+  startBtn.classList.add("main-btn", "start-btn");
+  startBtn.href = "#";
+  startBtn.textContent = "Start Exam";
+
+  btnDiv.appendChild(startBtn);
+
+  appendElements(
+    [header, cardsContainer, instructionSec, btnDiv],
+    bodyContainer
+  );
+  parent.appendChild(bodyContainer);
 }
 
-var main = document.querySelector("main");
+var main =
+  document.querySelector("main") || document.querySelector(".page-home");
+
 initializeInstructionsSection(main);
 
-// **===============================Instructions Creation===========================:
+// **===============================Instructions Creation===========================

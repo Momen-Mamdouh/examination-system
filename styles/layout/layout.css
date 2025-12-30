@@ -1,0 +1,15 @@
+/* **===================================BACKGROUND===============================** */
+
+.background-div {
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.form-bg {
+  min-height: 100vh;
+  background-image: url("../../assets/images/formBg2.svg");
+}
+
+/* **===================================BACKGROUND===============================** */
