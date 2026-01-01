@@ -20,12 +20,29 @@
     position: relative;
     overflow: hidden; 
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
 }
 
 .test-page .mark-sidebar{
   font-size: 0.8rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+.test-page .mark-sidebar::-webkit-scrollbar{        
+  width: 18px;
+  
+}
+.test-page .mark-sidebar::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.25);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
+.test-page .mark-sidebar::-webkit-scrollbar-track{
+  background: transparent;
+}
 
 .test-page .marked-question::before {
     content: '';
@@ -186,25 +203,25 @@
   border-radius: calc(var(--main-border-radius) * 3);
   padding: calc(var(--main-space) * 2.5);
   box-shadow: var(--main-box-shadow);
-
-  /** Assem **/
   overflow: auto;
   height: 500px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  /** Assem **/
+
 }
 
 .question {
   grid-column: 1;
   width: 100%;
+  min-height: 500px;
 }
 
 .mark-sidebar {
   grid-column: 2;
   grid-row: 1 / span 2; /* Stretch next to Q and Btns on desktop */
   min-height: 200px;
+  overflow: scroll;
 }
 
 /* Navigation Buttons */
@@ -424,5 +441,10 @@
 
   .question {
     padding: 20px;
+    min-height: 300px;
+  }
+
+  .mark-sidebar {
+    max-height: 300px;
   }
 }

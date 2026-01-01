@@ -5,8 +5,12 @@ body {
 
   background-color: var(--main-bg-color);
   color: var(--primary-text-color);
-  min-height: 100vh;
+  overflow-x: hidden;
 }
+/* html,
+body {
+  height: 100%;
+} */
 
 h1 {
   font-size: 2.25rem;

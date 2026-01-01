@@ -90,7 +90,7 @@ function initializeInstructionsSection(parent) {
     { icon: "fa-calendar-days", label: "Date", value: getTodayDate() },
     { icon: "fa-hourglass-half", label: "Duration", value: "20 Minutes" },
     { icon: "fa-pen-to-square", label: "Questions", value: "10 Questions" },
-    { icon: "fa-medal", label: "Pass Score", value: "60%" },
+    { icon: "fa-solid fa-award", label: "Pass Score", value: "60%" },
   ];
 
   cardsData.forEach(function (data) {
