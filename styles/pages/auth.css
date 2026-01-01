@@ -138,7 +138,6 @@ main.auth-main section.auth div.auth-card .input-area span {
 
 /* ^^===================================Media_Query===============================^^ */
 
-/* desktop */
 @media (min-width: 992px) {
   .auth {
     flex-direction: row;
@@ -149,8 +148,7 @@ main.auth-main section.auth div.auth-card .input-area span {
   }
 }
 
-/* tablet & mobile */
-@media (max-width: 991px) {
+@media (max-width: 850px) {
   .auth {
     flex-direction: column;
   }
@@ -162,7 +160,6 @@ main.auth-main section.auth div.auth-card .input-area span {
     display: none;
   }
   .auth-card {
-    width: 100%;
     max-width: 420px;
     border-radius: var(--card-border-radius);
     padding-bottom: var(--main-space);
@@ -170,6 +167,12 @@ main.auth-main section.auth div.auth-card .input-area span {
   main.auth-main section.auth div.auth-card .card-header {
     box-shadow: none;
     font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .auth-card {
+    max-width: 320px;
   }
 }
 /* ^^===================================Media_Query===============================^^ */

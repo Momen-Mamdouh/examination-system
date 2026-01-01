@@ -190,7 +190,7 @@ function initializeQuestionLayout(parent) {
   var sidebarTitle = createEle("h2");
   sidebarTitle.textContent = "Marked Questions: ";
   markSidebar.classList.add("mark-sidebar");
-
+  console.log(sidebarTitle);
   appendElements([sidebarTitle], markSidebar);
 
   var btnsContainer = createEle("div");
@@ -227,7 +227,7 @@ function initializeQuestionLayout(parent) {
   );
 
   // insert into DOM
-  appendElements([questionDiv, btnsContainer, markSidebar], section);
+  appendElements([questionDiv, markSidebar, btnsContainer], section);
   appendElements([section], parent);
 
   // expose ONLY what logic needs
@@ -240,6 +240,8 @@ function initializeQuestionLayout(parent) {
     nextBtn,
     markBtn,
     submitBtn,
+    markSidebar,
+    sidebarTitle,
   };
 }
 
@@ -252,6 +254,8 @@ var answersContainer = questionUi.answersContainer;
 var prevBtn = questionUi.prevBtn;
 var nextBtn = questionUi.nextBtn;
 var submitBtn = questionUi.submitBtn;
+var markSidebar = questionUi.markSidebar;
+var sidebarTitle = questionUi.sidebarTitle;
 
 // ^^===============================Questions Initialization===========================:
 

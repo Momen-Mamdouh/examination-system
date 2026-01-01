@@ -167,12 +167,16 @@
       if (timeLeft <= 0) {
         console.log("NO TIME LEFT GO RESULT");
         replaceRoute("/pages/result.html");
+        return false;
       }
     } else {
       console.log("NOT LOGIN");
       replaceRoute("/pages/login.html");
+      return false;
     }
+    return true;
   }
+  if (!testGuard()) return;
 
   // !!===================================GUARD================================
 
@@ -323,7 +327,6 @@
   }
 
   function saveUserScore() {
-    console.log(currentUser);
     currentUser.userScore = quizState.score;
     var newScoreEntry = {
       userEmail: currentUser.userEmail,
@@ -333,7 +336,7 @@
       scoreDate: new Date(),
     };
 
-    console.log(newScoreEntry);
+    console.log(allScores, newScoreEntry);
     allScores.push(newScoreEntry);
     localStorage.setItem("logins", JSON.stringify(currentUser));
     localStorage.setItem("allScores", JSON.stringify(allScores));
@@ -383,6 +386,7 @@
   var markedQuestionsArr =
     JSON.parse(localStorage.getItem("markedQuestions")) || [];
   var markBtn = document.querySelector(".mark-btn");
+
   function checkMarked(x) {
     if (markedQuestionsArr.length == 0) return false;
     for (var i = 0; i < markedQuestionsArr.length; i++) {
@@ -393,7 +397,6 @@
     return false;
   }
   function createMarkedQuestion(indexToMark) {
-    var sidebar = document.querySelector(".mark-sidebar");
     var markedQuestion = document.createElement("button");
     // var currentIndex = quizState.currentQuestionIndex;
     markedQuestion.className = "marked-question";
@@ -421,12 +424,11 @@
       sidebar.removeChild(markedQuestion);
     });
     markedQuestion.appendChild(removeBtn);
-    sidebar.appendChild(markedQuestion);
+    markSidebar.appendChild(markedQuestion);
   }
 
   function renderMarkedSidebar() {
-    var sidebar = document.querySelector(".mark-sidebar");
-    sidebar.innerHTML = ""; // Clear existing
+    markSidebar.innerHTML = "<h2>Marked Questions: </h2>"; // Clear existing
     markedQuestionsArr.forEach(function (index) {
       createMarkedQuestion(index);
     });
@@ -501,9 +503,8 @@
   });
 
   window.addEventListener("beforeunload", function (eventObject) {
-    console.log("hello beforeunload");
-    eventObject.preventDefault();
-    eventObject.returnValue = "";
+    // eventObject.preventDefault();
+    // eventObject.returnValue = "";
     timeLeft = JSON.parse(localStorage.getItem("timeLeft")) || EXAM_TIME;
     studentAnswers =
       JSON.parse(localStorage.getItem("currentStudentAnswers")) ||
