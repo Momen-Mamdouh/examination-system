@@ -421,7 +421,7 @@
           JSON.stringify(markedQuestionsArr)
         );
       }
-      sidebar.removeChild(markedQuestion);
+      markSidebar.removeChild(markedQuestion);
     });
     markedQuestion.appendChild(removeBtn);
     markSidebar.appendChild(markedQuestion);

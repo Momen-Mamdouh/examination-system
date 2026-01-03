@@ -149,7 +149,8 @@
 /* **===================================LOADER===============================** */
 
 #loader-container {
-  position: absolute;
+  position: fixed;
+  inset: 0;
   background-color: var(--primary-color);
   min-width: 100vw;
   min-height: 100vh;
